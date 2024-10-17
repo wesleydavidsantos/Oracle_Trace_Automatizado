@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<displays>
+<display id="966119b5-0192-1000-8001-c0a873ea3840" type="" style="Table" enable="true">
+	<name><![CDATA[Ler Trace - WDS]]></name>
+	<description><![CDATA[Realiza a apresentação dos traces gerados]]></description>
+	<tooltip><![CDATA[]]></tooltip>
+	<drillclass><![CDATA[]]></drillclass>
+	<CustomValues>
+		<TYPE><![CDATA[horizontal]]></TYPE>
+	</CustomValues>
+	<query>
+		<sql><![CDATA[SELECT 
+     ID
+    ,TO_CHAR( DATA_CRIADO, 'DD/MM/YYYY HH24:MI:SS' ) DATA_CRIADO
+    ,TO_CHAR( DATA_SITUACAO_ALTERADO, 'DD/MM/YYYY HH24:MI:SS' ) DATA_SITUACAO_ALTERADO
+    ,ARQUIVO NOME_TRACE
+    ,SITUACAO
+    ,INST_ID
+    ,SID
+    ,SERIAL
+    ,USERNAME
+    ,HOST_USER
+FROM
+    TRACE_METADADOS
+ORDER BY
+    ID DESC]]></sql>
+	</query>
+	<display id="null" type="" style="Table" enable="true">
+		<name><![CDATA[Trace]]></name>
+		<description><![CDATA[]]></description>
+		<tooltip><![CDATA[]]></tooltip>
+		<drillclass><![CDATA[]]></drillclass>
+		<CustomValues>
+			<TYPE><![CDATA[horizontal]]></TYPE>
+		</CustomValues>
+		<query>
+			<sql><![CDATA[SELECT CONTEUDO FROM TRACE WHERE FK_ID_TRACE_METADADOS = :ID ORDER BY ID ASC]]></sql>
+			<binds>
+				<bind id="ID">
+					<prompt><![CDATA[ID]]></prompt>
+					<tooltip><![CDATA[ID]]></tooltip>
+					<value><![CDATA[NULL_VALUE]]></value>
+					<bracket><![CDATA[null]]></bracket>
+				</bind>
+			</binds>
+		</query>
+	</display>
+</display>
+</displays>
