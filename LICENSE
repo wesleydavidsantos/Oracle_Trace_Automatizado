@@ -173,6 +173,13 @@
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.
 
+**Commercial Use Clause:**
+
+1. For any use of this software in a commercial context, including, but not limited to, incorporation of this software into commercial products or services offered by businesses, the commercial entity must enter into a commercial license agreement with Wesley David Santos by e- mail ( wesleydavidsantos@gmail.com ) and pay the legal licensing fees.
+
+2. Non-commercial use of this software, including its use in open source projects, is exempt from this clause and may be carried out under the terms of the Apache License 2.0.
+
+
    END OF TERMS AND CONDITIONS
 
    APPENDIX: How to apply the Apache License to your work.
@@ -186,7 +193,11 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright [yyyy] [name of copyright owner]
+   Copyright [2023] Wesley David Santos
+  
+    Autor: Wesley David Santos
+    Skype: wesleydavidsantos
+    https://www.linkedin.com/in/wesleydavidsantos
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
