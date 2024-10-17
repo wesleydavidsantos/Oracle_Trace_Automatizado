@@ -58,25 +58,142 @@ Import para o seu SqlDeveloper conforme exemplo na imagem abaixo.
 
 # Sequencia de configuração do sistema de Trace
 
-Tabelas
+
+## Instalação - Configurando o Script que realiza a coleta do TRACE
+
+Observação: Até o momento, a coleta de TRACE é realizada somente em ambientes LINUX.
+
+1. Para configurar o processo de coleta do Trace serão necessários a criação de dois diretórios dentro do servidor do banco de dados.
+
+2. Fica a seu critério a definição do diretório local onde os outros dois diretórios serão criados, mas segue uma sugestão de diretório.
+
+   ```bash
+     -- Crie o diretório com o usuário ORACLE
+
+     -- Primeiro diretório
+     mkdir /u01/aplic/wds_plsql_tdd/
+
+
+     -- Segundo diretório. Esse diretório deve ser criado dentro do primeiro diretório
+     mkdir /u01/aplic/wds_plsql_tdd/trace
+   ```
+
+3. Realize o Upload do arquivo codificado em Shell Script para o primeiro diretório recém criado por você.
+
+   Nome do arquivo: wds_identificar_novo_trace.sh
+
+4. Transforme o arquivo em executável com o comando:
+
+```bash
+    chmod +x wds_identificar_novo_trace.sh
+```
+
+5. Crie um arquivo em branco com o nome: trace_gerado.wds
+
+   Exemplo: Use o comando: touch trace_gerado.wds
+
+```bash
+   touch trace_gerado.wds
+```
+
+6. Abra o arquivo wds_identificar_novo_trace.sh e realize a edição das variáveis locais.
+
+   Dentro do arquivo está descrito quais variáveis devem ser editadas.
+
+7. Execute o arquivo apontando o caminho completo. A execução deste arquivo deve retornar a mensagem ERRO, pois, ainda não foram realizadas coletas de TRACE.
+
+
+
+## Criação do Usuário
+
+```sql
+
+--
+-- Criação de usuário e grants
+
+CREATE USER WDS_TRACE IDENTIFIED BY WDS_TRACE;
+
+GRANT CREATE SESSION TO WDS_TRACE;
+GRANT UNLIMITED TABLESPACE TO WDS_TRACE;
+GRANT CREATE ANY DIRECTORY TO WDS_TRACE;
+GRANT CREATE SEQUENCE TO WDS_TRACE;
+GRANT CREATE TABLE TO WDS_TRACE;
+GRANT CREATE PROCEDURE TO WDS_TRACE;
+GRANT CREATE PUBLIC SYNONYM TO WDS_TRACE;
+
+
+-- Com usuário o SYS
+GRANT SELECT ON SYS.GV_$SESSION TO WDS_TRACE;
+GRANT ALTER SESSION TO WDS_TRACE;
+GRANT EXECUTE ON SYS.UTL_FILE TO WDS_TRACE;
+
+
+-- Com usuário o SYS
+GRANT ALTER SESSION TO {USERNAME_DO_USUARIO_QUE_ESTA_USANDO_O_SISTEMA_DE_TRACE};
+
+
+--
+--
+-- 
+
+```
+
+## Configurando os diretórios criados
+
+Definindo a criação dos diretórios dentro do banco de dados Oracle
+
+Se conecte no banco de dados com o usuário WDS_TRACE para que seja realizado a criação dos diretórios, execute o comando abaixo.
+
+   Não se esqueça de informar corretamente o caminho completo dos diretórios que você criou anteriormente.
+
+   ```sql
+       -- Informe o caminho completo do primeiro diretório definido na parte: Instalação - Configurando o Script que realiza a coleta do TRACE
+       -- Não coloque a barra "/" no final do diretório
+       CREATE DIRECTORY WDS_TRACE_SCRIPT AS '/u01/aplic/wds_plsql_tdd';
+
+       -- Informe o caminho completo do segundo diretório definido na parte: Instalação - Configurando o Script que realiza a coleta do TRACE
+       -- Não coloque a barra "/" no final do diretório
+       CREATE DIRECTORY WDS_TRACE_TKPROF AS '/u01/aplic/wds_plsql_tdd/trace';
+
+
+       --
+       --
+       -- Após realizar a criação dos diretórios realize os GRANTs
+       GRANT READ, WRITE ON DIRECTORY WDS_TRACE_SCRIPT TO WDS_TRACE;
+       GRANT READ, WRITE ON DIRECTORY WDS_TRACE_TKPROF TO WDS_TRACE;  
+   ```
+
+
+## Criando as Tabelas
 
 - LOG_INFO 
 - TRACE_METADADOS
 - TRACE
 - SHELL_EXECUTAR_TKPROF_TRACE - (Após criar a tabela, realize um SELECT que deve retornar a palavra ERRO, se isso não acontecer, então não está reconhecendo o arquivo Shell Script)
 
-Packages
+## Criando as Packages
 - GERENCIAR_TRACE
 - EXPORTADOR_TRACE
 
-Procedures de Atalho
+## Criando as Procedures de Atalho
 
 - ATIVAR_TRACE
 - DESATIVAR_TRACE
 - PROCESSAR_TRACE
 
-Criar os SYNONYM para as procedures de atalho
-- Grant Execute em PUBLIC para as procedures de Atalho
+
+## Criar os SYNONYM para as procedures de atalho
+
+- CREATE PUBLIC SYNONYM ATIVAR_TRACE FOR WDS_TRACE.ATIVAR_TRACE;
+- CREATE PUBLIC SYNONYM DESATIVAR_TRACE FOR WDS_TRACE.DESATIVAR_TRACE;
+- CREATE PUBLIC SYNONYM PROCESSAR_TRACE FOR WDS_TRACE.PROCESSAR_TRACE;
+
+## Grant
+
+- GRANT EXECUTE ON WDS_TRACE.ATIVAR_TRACE TO PUBLIC;
+- GRANT EXECUTE ON WDS_TRACE.DESATIVAR_TRACE TO PUBLIC;
+- GRANT EXECUTE ON WDS_TRACE.PROCESSAR_TRACE TO PUBLIC;
+
 
 
 
