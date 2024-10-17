@@ -18,6 +18,8 @@ Abaixo, destaco os principais benefícios do uso de trace no Oracle para diagnó
 
 O uso do trace em momentos críticos ajuda na identificação de baixo desempenho das aplicações e torna a solução de problemas mais eficiente.
 
+## Como usar
+
 A execução do sistema de coleta de trace é bastante simples: são necessárias apenas três procedures na sessão onde a coleta será realizada.
 
 Seguem abaixo a lista de comandos.
@@ -37,6 +39,8 @@ EXECUTE DESATIVAR_TRACE;
 -- Processa e gera o trace coletado
 EXECUTE PROCESSAR_TRACE;
 ````
+
+## Realizando a leitura do trace
 
 Seguem os SELECT para consultar os traces gerados. 
 
