@@ -60,25 +60,24 @@ Import para o seu SqlDeveloper conforme exemplo na imagem abaixo.
 
 * Tabelas
 
-LOG_INFO
-TRACE_METADADOS
-TRACE
-SHELL_EXECUTAR_TKPROF_TRACE - (Após criar a tabela, realize um SELECT que deve retornar a palavra ERRO, se isso não acontecer, então não está reconhecendo o arquivo Shell Script)
+- LOG_INFO 
+- TRACE_METADADOS
+- TRACE
+- SHELL_EXECUTAR_TKPROF_TRACE - (Após criar a tabela, realize um SELECT que deve retornar a palavra ERRO, se isso não acontecer, então não está reconhecendo o arquivo Shell Script)
 
 * Packages
-
-GERENCIAR_TRACE
-EXPORTADOR_TRACE
+- GERENCIAR_TRACE
+- EXPORTADOR_TRACE
 
 * Procedures de Atalho
 
-ATIVAR_TRACE
-DESATIVAR_TRACE
-PROCESSAR_TRACE
+- ATIVAR_TRACE
+- DESATIVAR_TRACE
+- PROCESSAR_TRACE
 
-
-Criar os SYNONYM para as procedures de atalho
+* Criar os SYNONYM para as procedures de atalho
 Grant Execute em PUBLIC para as procedures de Atalho
+
 
 
 ## Contribuições Financeiras (Opcional)
